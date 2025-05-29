@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Interativa - LocaFácil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #1A5F7A;
+            --secondary-color: #57C5B6;
+            --accent-color: #FFA000;
+            --danger-color: #E53935;
+            --light-bg: #F2F2F2;
+            --dark-text: #333333;
+            --medium-text: #6B7280;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            padding-top: 56px;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #0D3B4F);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 15px 20px;
+            border-bottom: none;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #14506A;
+            border-color: #14506A;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: #0D3B4F;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .demo-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .demo-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .demo-header h3 {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .demo-controls button {
+            background-color: rgba(255,255,255,0.2);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .demo-controls button:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        
+        .demo-content {
+            padding: 0;
+            height: 600px;
+            position: relative;
+        }
+        
+        .demo-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .demo-sidebar {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 25px;
+            position: sticky;
+            top: 80px;
+        }
+        
+        .demo-sidebar h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .demo-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .demo-nav li {
+            margin-bottom: 10px;
+        }
+        
+        .demo-nav a {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: var(--dark-text);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .demo-nav a:hover, .demo-nav a.active {
+            background-color: rgba(26, 95, 122, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .demo-nav i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .demo-info {
+            background-color: rgba(26, 95, 122, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        
+        .demo-info p {
+            margin: 0;
+            color: var(--primary-color);
+        }
+        
+        .demo-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .demo-actions .btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .demo-actions .btn i {
+            margin-right: 8px;
+        }
+        
+        .demo-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+        
+        .demo-placeholder i {
+            font-size: 60px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .demo-placeholder h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .demo-placeholder p {
+            color: var(--medium-text);
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+        
+        .demo-login-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .demo-login-form h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .demo-login-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .demo-login-form label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .demo-login-form .form-control {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        
+        .demo-login-form .btn-primary {
+            width: 100%;
+            padding: 12px;
+            font-weight: 600;
+        }
+        
+        .demo-login-form .form-text {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .demo-login-form .form-text a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .demo-login-form .form-text a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 30px 0;
+            }
+            
+            .demo-content {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-car-front-fill me-2"></i>
+                LocaFácil
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="prototipos.html">Protótipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentacao.html">Documentação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="banco_dados.html">Banco de Dados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="demo.html">Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Demo Interativa</h1>
+            <p class="lead">Experimente o sistema LocaFácil em ação</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 mb-4">
+                <div class="demo-sidebar">
+                    <h4>Navegação</h4>
+                    <ul class="demo-nav">
+                        <li>
+                            <a href="#" class="active" onclick="loadDemoContent('login')">
+                                <i class="bi bi-box-arrow-in-right"></i> Login
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="loadDemoContent('dashboard')">
+                                <i class="bi bi-speedometer2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="loadDemoContent('veiculos')">
+                                <i class="bi bi-car-front"></i> Veículos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="loadDemoContent('vistorias')">
+                                <i class="bi bi-clipboard-check"></i> Vistorias
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="loadDemoContent('documentos')">
+                                <i class="bi bi-file-earmark-text"></i> Documentos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="loadDemoContent('multas')">
+                                <i class="bi bi-exclamation-triangle"></i> Multas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="loadDemoContent('relatorios')">
+                                <i class="bi bi-graph-up"></i> Relatórios
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div class="demo-info">
+                        <p><i class="bi bi-info-circle me-2"></i> Esta é uma demonstração interativa. Clique nos itens do menu para navegar entre as telas.</p>
+                    </div>
+                    
+                    <div class="demo-actions">
+                        <a href="locafacil_demo.zip" class="btn btn-primary">
+                            <i class="bi bi-download"></i> Baixar Demo
+                        </a>
+                        <a href="https://github.com/harrisoncosta/locafacil" target="_blank" class="btn btn-outline-primary">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Demo Content -->
+            <div class="col-lg-9">
+                <div class="demo-container">
+                    <div class="demo-header">
+                        <h3><i class="bi bi-display me-2"></i> LocaFácil Demo</h3>
+                        <div class="demo-controls">
+                            <button type="button" title="Minimizar"><i class="bi bi-dash"></i></button>
+                            <button type="button" title="Maximizar"><i class="bi bi-arrows-fullscreen"></i></button>
+                            <button type="button" title="Fechar"><i class="bi bi-x"></i></button>
+                        </div>
+                    </div>
+                    <div class="demo-content" id="demo-content">
+                        <!-- Login Form -->
+                        <div id="login-content">
+                            <div class="d-flex align-items-center justify-content-center h-100">
+                                <div class="demo-login-form">
+                                    <div class="text-center mb-4">
+                                        <i class="bi bi-car-front-fill" style="font-size: 48px; color: var(--primary-color);"></i>
+                                        <h3 class="mt-3">LocaFácil</h3>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="seu@email.com" value="demo@locafacil.com.br">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Senha</label>
+                                        <input type="password" class="form-control" id="password" placeholder="Sua senha" value="demo123">
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="loadDemoContent('dashboard')">Entrar</button>
+                                    <div class="form-text">
+                                        <a href="#">Esqueceu sua senha?</a>
+                                    </div>
+                                    <div class="form-text">
+                                        Não tem uma conta? <a href="#">Criar conta</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Other content sections will be loaded dynamically -->
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-info-circle me-2"></i> Sobre a Demo
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Demonstração Interativa do LocaFácil</h5>
+                        <p>Esta demonstração permite que você navegue pelas principais telas do sistema LocaFácil e experimente suas funcionalidades. Para uma experiência completa, você pode baixar a versão offline da demo ou acessar o repositório no GitHub.</p>
+                        <p>Credenciais de acesso:</p>
+                        <ul>
+                            <li><strong>Email:</strong> demo@locafacil.com.br</li>
+                            <li><strong>Senha:</strong> demo123</li>
+                        </ul>
+                        <p>Você pode alternar entre os perfis de Proprietário e Motorista para ver as diferentes interfaces e funcionalidades disponíveis para cada tipo de usuário.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4">LocaFácil</h5>
+                    <p>Sistema de gerenciamento de carros locados para aplicativos como Uber e outros serviços de mobilidade.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="mb-4">Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="prototipos.html">Protótipos</a></li>
+                        <li><a href="documentacao.html">Documentação</a></li>
+                        <li><a href="banco_dados.html">Banco de Dados</a></li>
+                        <li><a href="demo.html">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-4">Recursos</h5>
+                    <ul class="footer-links">
+                        <li><a href="base_dados.html">Base de Dados</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-4">Contato</h5>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-envelope me-2"></i> contato@locafacil.com.br</li>
+                        <li><i class="bi bi-telephone me-2"></i> (11) 9999-9999</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 LocaFácil. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Desenvolvido por Harrison Costa</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to load different demo content
+        function loadDemoContent(section) {
+            // Update active nav item
+            document.querySelectorAll('.demo-nav a').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`.demo-nav a[onclick="loadDemoContent('${section}')"]`).classList.add('active');
+            
+            // Hide login content
+            document.getElementById('login-content').style.display = 'none';
+            
+            // Remove any existing placeholder
+            const existingPlaceholder = document.querySelector('.demo-placeholder');
+            if (existingPlaceholder) {
+                existingPlaceholder.remove();
+            }
+            
+            if (section === 'login') {
+                // Show login form
+                document.getElementById('login-content').style.display = 'block';
+            } else {
+                // Create placeholder for other sections
+                const placeholder = document.createElement('div');
+                placeholder.className = 'demo-placeholder';
+                
+                let icon, title, description;
+                
+                switch(section) {
+                    case 'dashboard':
+                        icon = 'bi-speedometer2';
+                        title = 'Dashboard do Proprietário';
+                        description = 'Visão geral da frota, indicadores financeiros, alertas e notificações.';
+                        break;
+                    case 'veiculos':
+                        icon = 'bi-car-front';
+                        title = 'Gerenciamento de Veículos';
+                        description = 'Cadastro completo, histórico de uso, atribuição a motoristas e controle de manutenções.';
+                        break;
+                    case 'vistorias':
+                        icon = 'bi-clipboard-check';
+                        title = 'Vistorias';
+                        description = 'Agendamento, checklist detalhado, registro fotográfico e aprovação/rejeição.';
+                        break;
+                    case 'documentos':
+                        icon = 'bi-file-earmark-text';
+                        title = 'Documentos';
+                        description = 'Organização por categorias, controle de vencimentos e alertas automáticos.';
+                        break;
+                    case 'multas':
+                        icon = 'bi-exclamation-triangle';
+                        title = 'Multas';
+                        description = 'Registro detalhado, atribuição de responsabilidade, controle de pagamentos e gestão de recursos.';
+                        break;
+                    case 'relatorios':
+                        icon = 'bi-graph-up';
+                        title = 'Relatórios';
+                        description = 'Análises financeiras, desempenho da frota, histórico de motoristas e exportação em múltiplos formatos.';
+                        break;
+                    default:
+                        icon = 'bi-question-circle';
+                        title = 'Conteúdo não disponível';
+                        description = 'Esta seção não está disponível na versão de demonstração.';
+                }
+                
+                placeholder.innerHTML = `
+                    <i class="bi ${icon}"></i>
+                    <h4>${title}</h4>
+                    <p>${description}</p>
+                    <button class="btn btn-primary" disabled>
+                        <i class="bi bi-lock"></i> Disponível na versão completa
+                    </button>
+                `;
+                
+                document.getElementById('demo-content').appendChild(placeholder);
+            }
+        }
+    </script>
+</body>
+</html>

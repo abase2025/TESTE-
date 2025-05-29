@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - LocaFácil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #1A5F7A;
+            --secondary-color: #57C5B6;
+            --accent-color: #FFA000;
+            --danger-color: #E53935;
+            --light-bg: #F2F2F2;
+            --dark-text: #333333;
+            --medium-text: #6B7280;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            padding-top: 56px;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #0D3B4F);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 15px 20px;
+            border-bottom: none;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #14506A;
+            border-color: #14506A;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: #0D3B4F;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--dark-text);
+            border-radius: 6px;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .doc-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .doc-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .doc-content h4 {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .doc-content ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .doc-content li {
+            margin-bottom: 8px;
+        }
+        
+        .doc-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .doc-content .table {
+            margin-bottom: 30px;
+        }
+        
+        .doc-content .table th {
+            background-color: rgba(26, 95, 122, 0.1);
+        }
+        
+        .doc-image {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 25px;
+        }
+        
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        .timeline-item h5 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 30px 0;
+            }
+            
+            .doc-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-car-front-fill me-2"></i>
+                LocaFácil
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="prototipos.html">Protótipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="documentacao.html">Documentação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="banco_dados.html">Banco de Dados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="demo.html">Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Documentação</h1>
+            <p class="lead">Documentação completa do projeto LocaFácil</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <div class="col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-list-ul me-2"></i> Navegação
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="nav flex-column nav-pills p-3" id="v-pills-tab" role="tablist">
+                            <button class="nav-link active" id="v-pills-problema-tab" data-bs-toggle="pill" data-bs-target="#v-pills-problema" type="button" role="tab">Definição do Problema</button>
+                            <button class="nav-link" id="v-pills-solucao-tab" data-bs-toggle="pill" data-bs-target="#v-pills-solucao" type="button" role="tab">Solução Tecnológica</button>
+                            <button class="nav-link" id="v-pills-plano-tab" data-bs-toggle="pill" data-bs-target="#v-pills-plano" type="button" role="tab">Plano de Desenvolvimento</button>
+                            <button class="nav-link" id="v-pills-arquitetura-tab" data-bs-toggle="pill" data-bs-target="#v-pills-arquitetura" type="button" role="tab">Arquitetura do Sistema</button>
+                            <button class="nav-link" id="v-pills-fluxos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-fluxos" type="button" role="tab">Fluxos de Usuário</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <i class="bi bi-download me-2"></i> Downloads
+                    </div>
+                    <div class="card-body">
+                        <a href="documentacao_completa.pdf" class="btn btn-primary w-100 mb-2">
+                            <i class="bi bi-file-earmark-pdf me-2"></i> Baixar PDF
+                        </a>
+                        <a href="locafacil_projeto_completo.zip" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-download me-2"></i> Projeto Completo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Documentation Content -->
+            <div class="col-lg-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <!-- Definição do Problema -->
+                    <div class="tab-pane fade show active" id="v-pills-problema" role="tabpanel">
+                        <div class="doc-content">
+                            <h3>Definição do Problema e Personas</h3>
+                            
+                            <h4>O Problema</h4>
+                            <p>O mercado de locação de veículos para motoristas de aplicativos como Uber, 99 e outros serviços de mobilidade tem crescido significativamente nos últimos anos. Proprietários de múltiplos veículos enfrentam desafios consideráveis na gestão eficiente de sua frota, especialmente quando se trata de:</p>
+                            
+                            <ul>
+                                <li><strong>Controle de quilometragem:</strong> Dificuldade em monitorar e verificar a quilometragem semanal dos veículos.</li>
+                                <li><strong>Vistorias periódicas:</strong> Complexidade na programação, realização e documentação de vistorias regulares.</li>
+                                <li><strong>Gestão de documentos:</strong> Desafios no controle de vencimentos de documentos como CRLV, seguros e revisões.</li>
+                                <li><strong>Controle de multas:</strong> Dificuldade em atribuir responsabilidades e gerenciar o pagamento de infrações.</li>
+                                <li><strong>Relatórios e análises:</strong> Falta de dados consolidados para tomada de decisões estratégicas.</li>
+                                <li><strong>Comunicação com motoristas:</strong> Ineficiência nos canais de comunicação entre proprietários e motoristas.</li>
+                            </ul>
+                            
+                            <p>Atualmente, muitos proprietários utilizam métodos manuais ou ferramentas não específicas (como planilhas) para gerenciar esses aspectos, resultando em ineficiências, perda de informações e dificuldade em escalar o negócio.</p>
+                            
+                            <h4>Personas</h4>
+                            
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Proprietário de Múltiplos Veículos</h5>
+                                    <p><strong>Nome:</strong> Carlos, 45 anos</p>
+                                    <p><strong>Perfil:</strong> Possui 5 veículos que aluga para motoristas de aplicativos. Trabalha em tempo integral com esse negócio.</p>
+                                    <p><strong>Desafios:</strong></p>
+                                    <ul>
+                                        <li>Gerenciar múltiplos contratos com diferentes motoristas</li>
+                                        <li>Controlar manutenções e vistorias de todos os veículos</li>
+                                        <li>Verificar a quilometragem reportada pelos motoristas</li>
+                                        <li>Gerenciar documentação e prazos de renovação</li>
+                                    </ul>
+                                    <p><strong>Necessidades:</strong> Sistema centralizado para gerenciar toda a frota, com alertas automáticos e relatórios detalhados.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Proprietária Empreendedora</h5>
+                                    <p><strong>Nome:</strong> Ana, 38 anos</p>
+                                    <p><strong>Perfil:</strong> Começou com 1 veículo e expandiu para 3. Tem outro emprego e gerencia os veículos como renda extra.</p>
+                                    <p><strong>Desafios:</strong></p>
+                                    <ul>
+                                        <li>Conciliar a gestão dos veículos com seu emprego principal</li>
+                                        <li>Otimizar o tempo dedicado às vistorias e manutenções</li>
+                                        <li>Garantir que os motoristas estejam cumprindo os acordos</li>
+                                        <li>Maximizar o retorno sobre o investimento</li>
+                                    </ul>
+                                    <p><strong>Necessidades:</strong> Sistema simples e intuitivo que permita gerenciamento remoto e notificações em tempo real.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Investidor em Expansão</h5>
+                                    <p><strong>Nome:</strong> Roberto, 52 anos</p>
+                                    <p><strong>Perfil:</strong> Empresário que investiu em uma frota de 15 veículos como diversificação de negócios. Planeja expandir para 30 veículos.</p>
+                                    <p><strong>Desafios:</strong></p>
+                                    <ul>
+                                        <li>Escalar o negócio mantendo controle eficiente</li>
+                                        <li>Analisar a rentabilidade de cada veículo</li>
+                                        <li>Gerenciar uma equipe para realizar vistorias e manutenções</li>
+                                        <li>Tomar decisões estratégicas baseadas em dados</li>
+                                    </ul>
+                                    <p><strong>Necessidades:</strong> Sistema robusto com análises avançadas, relatórios gerenciais e capacidade de delegar tarefas a colaboradores.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Motorista de Aplicativo</h5>
+                                    <p><strong>Nome:</strong> Pedro, 32 anos</p>
+                                    <p><strong>Perfil:</strong> Trabalha exclusivamente como motorista de aplicativos há 3 anos. Aluga um veículo pois não possui carro próprio.</p>
+                                    <p><strong>Desafios:</strong></p>
+                                    <ul>
+                                        <li>Comprovar quilometragem e uso do veículo</li>
+                                        <li>Reportar problemas e necessidades de manutenção</li>
+                                        <li>Agendar vistorias sem perder muitas horas de trabalho</li>
+                                        <li>Manter documentação pessoal e do veículo em dia</li>
+                                    </ul>
+                                    <p><strong>Necessidades:</strong> Interface móvel simples para registrar quilometragem, solicitar manutenções e receber lembretes de pagamentos e vistorias.</p>
+                                </div>
+                            </div>
+                            
+                            <h4>Desafios Atuais</h4>
+                            <p>Os métodos atuais de gerenciamento apresentam diversas limitações:</p>
+                            
+                            <ul>
+                                <li><strong>Métodos manuais:</strong> Cadernos, agendas e planilhas básicas são propensos a erros e perda de informações.</li>
+                                <li><strong>Soluções genéricas:</strong> Ferramentas não específicas para este mercado não atendem às necessidades particulares do setor.</li>
+                                <li><strong>Comunicação fragmentada:</strong> Uso de múltiplos canais (WhatsApp, ligações, e-mails) dificulta o registro histórico e rastreabilidade.</li>
+                                <li><strong>Falta de automação:</strong> Ausência de alertas automáticos para vencimentos, manutenções e pagamentos.</li>
+                                <li><strong>Dificuldade de escala:</strong> Métodos que funcionam para 1-2 veículos tornam-se inviáveis para frotas maiores.</li>
+                            </ul>
+                            
+                            <p>Estes desafios evidenciam a necessidade de uma solução específica para o gerenciamento de carros locados para aplicativos, que atenda às necessidades tanto dos proprietários quanto dos motoristas, permitindo um controle eficiente e escalável.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Solução Tecnológica -->
+                    <div class="tab-pane fade" id="v-pills-solucao" role="tabpanel">
+                        <div class="doc-content">
+                            <h3>Solução Tecnológica: Sistema LocaFácil</h3>
+                            
+                            <h4>Visão Geral</h4>
+                            <p>O LocaFácil é uma plataforma completa para gerenciamento de carros locados para aplicativos, desenvolvida com tecnologias no-code/low-code para garantir rápida implementação e facilidade de adaptação às necessidades do mercado.</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <img src="https://via.placeholder.com/600x400/F2F2F2/1A5F7A?text=Arquitetura+LocaFácil" alt="Arquitetura LocaFácil" class="img-fluid doc-image">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Tecnologias Principais</h5>
+                                    <ul>
+                                        <li><strong>Frontend:</strong> FlutterFlow (plataforma no-code para desenvolvimento de aplicativos Flutter)</li>
+                                        <li><strong>Backend:</strong> Supabase (plataforma open-source com PostgreSQL, autenticação, armazenamento e APIs)</li>
+                                        <li><strong>Autenticação:</strong> Sistema integrado do Supabase com múltiplos métodos</li>
+                                        <li><strong>Armazenamento:</strong> Supabase Storage para documentos e fotos</li>
+                                        <li><strong>Notificações:</strong> Firebase Cloud Messaging integrado ao FlutterFlow</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>Paleta de Cores</h4>
+                            <p>A identidade visual do LocaFácil foi cuidadosamente desenvolvida para transmitir confiança, segurança e profissionalismo, valores essenciais para o mercado de locação de veículos.</p>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-2 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body p-2 text-center" style="background-color: #1A5F7A; color: white;">
+                                            <p class="mb-0">Azul Confiança</p>
+                                            <small>#1A5F7A</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body p-2 text-center" style="background-color: #57C5B6; color: white;">
+                                            <p class="mb-0">Verde Sucesso</p>
+                                            <small>#57C5B6</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body p-2 text-center" style="background-color: #FFA000; color: white;">
+                                            <p class="mb-0">Âmbar</p>
+                                            <small>#FFA000</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body p-2 text-center" style="background-color: #E53935; color: white;">
+                                            <p class="mb-0">Vermelho</p>
+                                            <small>#E53935</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body p-2 text-center" style="background-color: #F2F2F2; color: #333333;">
+                                            <p class="mb-0">Cinza Claro</p>
+                                            <small>#F2F2F2</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <div class="card h-100">
+                                        <div class="card-body p-2 text-center" style="background-color: #333333; color: white;">
+                                            <p class="mb-0">Preto Elegante</p>
+                                            <small>#333333</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4>Funcionalidades Principais</h4>
+                            
+                            <div class="table-responsive mb-4">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Módulo</th>
+                                            <th>Funcionalidades</th>
+                                            <th>Benefícios</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Dashboard</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Visão geral da frota</li>
+                                                    <li>Indicadores financeiros</li>
+                                                    <li>Alertas e notificações</li>
+                                                    <li>Ações rápidas</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Tomada de decisão rápida</li>
+                                                    <li>Monitoramento em tempo real</li>
+                                                    <li>Priorização de ações</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Veículos</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Cadastro completo</li>
+                                                    <li>Histórico de uso</li>
+                                                    <li>Atribuição a motoristas</li>
+                                                    <li>Controle de manutenções</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Gestão centralizada da frota</li>
+                                                    <li>Rastreabilidade completa</li>
+                                                    <li>Otimização da vida útil</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Vistorias</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Agendamento</li>
+                                                    <li>Checklist detalhado</li>
+                                                    <li>Registro fotográfico</li>
+                                                    <li>Aprovação/rejeição</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Documentação completa</li>
+                                                    <li>Redução de conflitos</li>
+                                                    <li>Manutenção preventiva</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Documentos</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Organização por categorias</li>
+                                                    <li>Controle de vencimentos</li>
+                                                    <li>Alertas automáticos</li>
+                                                    <li>Armazenamento seguro</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Conformidade legal</li>
+                                                    <li>Prevenção de multas</li>
+                                                    <li>Acesso rápido quando necessário</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Multas</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Registro detalhado</li>
+                                                    <li>Atribuição de responsabilidade</li>
+                                                    <li>Controle de pagamentos</li>
+                                                    <li>Gestão de recursos</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Responsabilização adequada</li>
+                                                    <li>Redução de custos</li>
+                                                    <li>Prevenção de problemas legais</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Relatórios</strong></td>
+                                            <td>
+                                                <ul>
+                                                    <li>Análises financeiras</li>
+                                                    <li>Desempenho da frota</li>
+                                                    <li>Histórico de motoristas</li>
+                                                    <li>Exportação em múltiplos formatos</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    <li>Insights para crescimento</li>
+                                                    <li>Identificação de problemas</li>
+                                                    <li>Documentação para contabilidade</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <h4>Diferenciais Tecnológicos</h4>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5>FlutterFlow</h5>
+                                            <ul>
+                                                <li>Desenvolvimento visual e rápido</li>
+                                                <li>Interface nativa para iOS e Android</li>
+                                                <li>Experiência de usuário fluida</li>
+                                                <li>Suporte a temas personalizados</li>
+                                                <li>Integração com APIs externas</li>
+                                                <li>Exportação de código Flutter</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5>Supabase</h5>
+                                            <ul>
+                                                <li>Banco de dados PostgreSQL</li>
+                                                <li>Autenticação segura e flexível</li>
+                                                <li>Armazenamento de arquivos</li>
+                                                <li>Atualizações em tempo real</li>
+                                                <li>Políticas de segurança (RLS)</li>
+                                                <li>Funções e triggers serverless</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4>Segurança e Privacidade</h4>
+                            <p>O sistema LocaFácil foi projetado com segurança e privacidade como prioridades:</p>
+                            
+                            <ul>
+                                <li><strong>Autenticação multi-fator:</strong> Proteção adicional para contas de usuários.</li>
+                                <li><strong>Criptografia de dados:</strong> Informações sensíveis são criptografadas em repouso e em trânsito.</li>
+                                <li><strong>Políticas de acesso:</strong> Row Level Security (RLS) do Supabase garante que usuários só acessem dados autorizados.</li>
+                                <li><strong>Auditoria de ações:</strong> Registro detalhado de todas as operações realizadas no sistema.</li>
+                                <li><strong>Backup automático:</strong> Dados são regularmente copiados para garantir recuperação em caso de falhas.</li>
+                                <li><strong>Conformidade com LGPD:</strong> Sistema projetado para atender às exigências da Lei Geral de Proteção de Dados.</li>
+                            </ul>
+                            
+                            <h4>Escalabilidade</h4>
+                            <p>A arquitetura do LocaFácil foi projetada para crescer junto com o negócio do cliente:</p>
+                            
+                            <ul>
+                                <li><strong>Infraestrutura elástica:</strong> Recursos computacionais ajustam-se automaticamente conforme a demanda.</li>
+                                <li><strong>Modelo modular:</strong> Novas funcionalidades podem ser adicionadas sem afetar o sistema existente.</li>
+                                <li><strong>APIs extensíveis:</strong> Integração facilitada com outros sistemas e serviços.</li>
+                                <li><strong>Planos escaláveis:</strong> Diferentes níveis de serviço para atender desde pequenos proprietários até grandes frotas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Plano de Desenvolvimento -->
+                    <div class="tab-pane fade" id="v-pills-plano" role="tabpanel">
+                        <div class="doc-content">
+                            <h3>Plano de Desenvolvimento e Integração</h3>
+                            
+                            <h4>Cronograma de Implementação</h4>
+                            <p>O desenvolvimento do sistema LocaFácil está planejado para ser concluído em 4 semanas, seguindo uma abordagem ágil com entregas incrementais:</p>
+                            
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <h5>Semana 1: Configuração e Estrutura Básica</h5>
+                                    <ul>
+                                        <li>Configuração do ambiente FlutterFlow</li>
+                                        <li>Configuração do projeto Supabase</li>
+                                        <li>Implementação do sistema de autenticação</li>
+                                        <li>Criação da estrutura de navegação básica</li>
+                                        <li>Desenvolvimento das telas de login e cadastro</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <h5>Semana 2: Módulos Principais</h5>
+                                    <ul>
+                                        <li>Desenvolvimento do Dashboard</li>
+                                        <li>Implementação do módulo de Veículos</li>
+                                        <li>Implementação do módulo de Vistorias</li>
+                                        <li>Configuração do armazenamento de imagens</li>
+                                        <li>Testes de integração entre módulos</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <h5>Semana 3: Módulos Complementares</h5>
+                                    <ul>
+                                        <li>Implementação do módulo de Documentos</li>
+                                        <li>Implementação do módulo de Multas</li>
+                                        <li>Desenvolvimento do sistema de notificações</li>
+                                        <li>Implementação do módulo de Relatórios</li>
+                                        <li>Testes de usabilidade com usuários piloto</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <h5>Semana 4: Finalização e Otimização</h5>
+                                    <ul>
+                                        <li>Ajustes baseados no feedback dos usuários</li>
+                                        <li>Otimização de performance</li>
+                                        <li>Implementação de recursos avançados</li>
+                                        <li>Testes finais e correção de bugs</li>
+                                        <li>Preparação para lançamento</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>Estratégias de Integração</h4>
+                            
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Autenticação</h5>
+                                    <p>A integração entre FlutterFlow e Supabase para autenticação seguirá estas etapas:</p>
+                                    <ol>
+                                        <li>Configuração do provedor de autenticação no Supabase (email/senha, Google, Apple)</li>
+                                        <li>Implementação dos fluxos de login, cadastro e recuperação de senha no FlutterFlow</li>
+                                        <li>Configuração do middleware de autenticação para rotas protegidas</li>
+                                        <li>Implementação de tokens JWT para manter sessões</li>
+                                        <li>Configuração de políticas RLS baseadas no perfil do usuário</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Upload de Arquivos</h5>
+                                    <p>Para o gerenciamento de fotos e documentos, a integração seguirá este fluxo:</p>
+                                    <ol>
+                                        <li>Configuração do Supabase Storage com buckets separados para cada tipo de arquivo</li>
+                                        <li>Implementação de componentes de upload no FlutterFlow</li>
+                                        <li>Configuração de políticas de acesso para arquivos</li>
+                                        <li>Implementação de compressão e otimização de imagens</li>
+                                        <li>Desenvolvimento de visualizadores para diferentes tipos de arquivos</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5>Notificações em Tempo Real</h5>
+                                    <p>O sistema de notificações será implementado através de:</p>
+                                    <ol>
+                                        <li>Configuração do Supabase Realtime para atualizações em tempo real</li>
+                                        <li>Integração com Firebase Cloud Messaging para notificações push</li>
+                                        <li>Implementação de triggers no banco de dados para gerar notificações automáticas</li>
+                                        <li>Desenvolvimento de centro de notificações no aplicativo</li>
+                                        <li>Configuração de preferências de notificação por usuário</li>
+                                    </ol>
+                                </div>
+                            </div>
+                            
+                            <h4>Estratégia de Testes</h4>
+                            <p>Para garantir a qualidade e confiabilidade do sistema, serão realizados os seguintes tipos de testes:</p>
+                            
+                            <ul>
+                                <li><strong>Testes de Integração:</strong> Verificação da comunicação entre FlutterFlow e Supabase.</li>
+                                <li><strong>Testes de Usabilidade:</strong> Avaliação da experiência do usuário com proprietários e motoristas reais.</li>
+                                <li><strong>Testes de Performance:</strong> Análise do desempenho do sistema com diferentes volumes de dados.</li>
+                                <li><strong>Testes de Segurança:</strong> Verificação de vulnerabilidades e proteção de dados sensíveis.</li>
+                                <li><strong>Testes de Compatibilidade:</strong> Validação do funcionamento em diferentes dispositivos e navegadores.</li>
+                            </ul>
+                            
+                            <h4>Implantação e Lançamento</h4>
+                            <p>O processo de implantação seguirá estas etapas:</p>
+                            
+                            <ol>
+                                <li><strong>Ambiente de Staging:</strong> Implantação inicial em ambiente controlado para testes finais.</li>
+                                <li><strong>Migração de Dados:</strong> Para clientes que já possuem dados em outros sistemas.</li>
+                                <li><strong>Lançamento Gradual:</strong> Início com um grupo seleto de usuários antes da disponibilização geral.</li>
+                                <li><strong>Monitoramento Intensivo:</strong> Acompanhamento próximo durante as primeiras semanas de uso.</li>
+                                <li><strong>Ajustes Pós-lançamento:</strong> Correções e melhorias baseadas no feedback inicial.</li>
+                            </ol>
+                            
+                            <h4>Considerações sobre Escalabilidade</h4>
+                            <p>Para garantir que o sistema suporte o crescimento dos negócios dos clientes:</p>
+                            
+                            <ul>
+                                <li><strong>Arquitetura em Camadas:</strong> Separação clara entre interface, lógica de negócios e acesso a dados.</li>
+                                <li><strong>Índices Otimizados:</strong> Configuração cuidadosa de índices no banco de dados para consultas eficientes.</li>
+                                <li><strong>Caching Estratégico:</strong> Implementação de cache para dados frequentemente acessados.</li>
+                                <li><strong>Processamento em Background:</strong> Tarefas pesadas executadas em segundo plano para não afetar a experiência do usuário.</li>
+                                <li><strong>Monitoramento Contínuo:</strong> Ferramentas para acompanhar o desempenho e identificar gargalos.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Arquitetura do Sistema -->
+                    <div class="tab-pane fade" id="v-pills-arquitetura" role="tabpanel">
+                        <div class="doc-content">
+                            <h3>Arquitetura do Sistema</h3>
+                            <p>Detalhes da arquitetura do sistema...</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Fluxos de Usuário -->
+                    <div class="tab-pane fade" id="v-pills-fluxos" role="tabpanel">
+                        <div class="doc-content">
+                            <h3>Fluxos de Usuário</h3>
+                            <p>Detalhes dos fluxos de usuário...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4">LocaFácil</h5>
+                    <p>Sistema de gerenciamento de carros locados para aplicativos como Uber e outros serviços de mobilidade.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="mb-4">Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="prototipos.html">Protótipos</a></li>
+                        <li><a href="documentacao.html">Documentação</a></li>
+                        <li><a href="banco_dados.html">Banco de Dados</a></li>
+                        <li><a href="demo.html">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-4">Recursos</h5>
+                    <ul class="footer-links">
+                        <li><a href="base_dados.html">Base de Dados</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-4">Contato</h5>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-envelope me-2"></i> contato@locafacil.com.br</li>
+                        <li><i class="bi bi-telephone me-2"></i> (11) 9999-9999</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 LocaFácil. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Desenvolvido por Harrison Costa</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

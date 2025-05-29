@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - LocaFácil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #1A5F7A;
+            --secondary-color: #57C5B6;
+            --accent-color: #FFA000;
+            --danger-color: #E53935;
+            --light-bg: #F2F2F2;
+            --dark-text: #333333;
+            --medium-text: #6B7280;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            padding-top: 56px;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #0D3B4F);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 15px 20px;
+            border-bottom: none;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #14506A;
+            border-color: #14506A;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: #0D3B4F;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--dark-text);
+            border-radius: 6px;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .db-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .db-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .db-content h4 {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .db-content p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .db-image {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        pre[class*="language-"] {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 30px 0;
+            }
+            
+            .db-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-car-front-fill me-2"></i>
+                LocaFácil
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="prototipos.html">Protótipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentacao.html">Documentação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="banco_dados.html">Banco de Dados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="demo.html">Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Banco de Dados</h1>
+            <p class="lead">Modelagem, scripts SQL e políticas de segurança para o Supabase</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <div class="col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-list-ul me-2"></i> Navegação
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="nav flex-column nav-pills p-3" id="v-pills-tab" role="tablist">
+                            <button class="nav-link active" id="v-pills-modelagem-tab" data-bs-toggle="pill" data-bs-target="#v-pills-modelagem" type="button" role="tab">Modelagem</button>
+                            <button class="nav-link" id="v-pills-script1-tab" data-bs-toggle="pill" data-bs-target="#v-pills-script1" type="button" role="tab">Script 1: Schema</button>
+                            <button class="nav-link" id="v-pills-script2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-script2" type="button" role="tab">Script 2: Tabelas</button>
+                            <button class="nav-link" id="v-pills-script3-tab" data-bs-toggle="pill" data-bs-target="#v-pills-script3" type="button" role="tab">Script 3: Índices</button>
+                            <button class="nav-link" id="v-pills-script4-tab" data-bs-toggle="pill" data-bs-target="#v-pills-script4" type="button" role="tab">Script 4: RLS</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <i class="bi bi-download me-2"></i> Downloads
+                    </div>
+                    <div class="card-body">
+                        <a href="scripts_sql.zip" class="btn btn-primary w-100 mb-2">
+                            <i class="bi bi-file-earmark-code me-2"></i> Baixar Scripts SQL
+                        </a>
+                        <a href="locafacil_projeto_completo.zip" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-download me-2"></i> Projeto Completo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Database Content -->
+            <div class="col-lg-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <!-- Modelagem -->
+                    <div class="tab-pane fade show active" id="v-pills-modelagem" role="tabpanel">
+                        <div class="db-content">
+                            <h3>Modelagem do Banco de Dados (Supabase)</h3>
+                            
+                            <p>O banco de dados do LocaFácil foi modelado utilizando PostgreSQL no Supabase, com foco em performance, segurança e escalabilidade. A estrutura foi projetada para suportar todas as funcionalidades do sistema, desde o gerenciamento de usuários e veículos até o controle detalhado de vistorias, documentos e finanças.</p>
+                            
+                            <h4>Diagrama Entidade-Relacionamento (DER)</h4>
+                            <img src="https://via.placeholder.com/800x600/F2F2F2/1A5F7A?text=Diagrama+Entidade-Relacionamento" alt="Diagrama Entidade-Relacionamento" class="img-fluid db-image">
+                            
+                            <h4>Principais Entidades</h4>
+                            <ul>
+                                <li><strong>usuarios:</strong> Armazena informações dos usuários (proprietários, motoristas, administradores), estendendo a tabela `auth.users` do Supabase.</li>
+                                <li><strong>veiculos:</strong> Contém os dados dos veículos da frota, incluindo informações técnicas e status.</li>
+                                <li><strong>contratos:</strong> Registra os acordos de locação entre proprietários e motoristas.</li>
+                                <li><strong>vistorias:</strong> Armazena os detalhes das vistorias realizadas, incluindo componentes avaliados e fotos.</li>
+                                <li><strong>documentos:</strong> Gerencia documentos relacionados a veículos, motoristas ou à empresa.</li>
+                                <li><strong>multas:</strong> Registra as infrações de trânsito, pagamentos e recursos.</li>
+                                <li><strong>quilometragem:</strong> Histórico de registros de quilometragem dos veículos.</li>
+                                <li><strong>pagamentos:</strong> Controle dos pagamentos referentes aos contratos de locação.</li>
+                                <li><strong>notificacoes:</strong> Armazena as notificações enviadas aos usuários.</li>
+                                <li><strong>audit_logs:</strong> Registra as ações realizadas no sistema para fins de auditoria.</li>
+                            </ul>
+                            
+                            <h4>Relacionamentos</h4>
+                            <p>Os relacionamentos entre as tabelas foram definidos utilizando chaves estrangeiras (Foreign Keys) para garantir a integridade referencial dos dados. Por exemplo:</p>
+                            <ul>
+                                <li>Um `veiculo` pertence a um `usuario` (proprietário).</li>
+                                <li>Um `contrato` relaciona um `veiculo`, um `usuario` (proprietário) e um `usuario` (motorista).</li>
+                                <li>Uma `vistoria` está associada a um `veiculo` e a um `usuario` (quem realizou).</li>
+                                <li>Uma `multa` está associada a um `veiculo` e pode ter um `usuario` (responsável).</li>
+                            </ul>
+                            
+                            <h4>Segurança (Row Level Security - RLS)</h4>
+                            <p>Políticas de RLS foram implementadas em todas as tabelas para garantir que cada tipo de usuário (administrador, proprietário, motorista) acesse apenas os dados que lhe são permitidos, aumentando significativamente a segurança e a privacidade das informações.</p>
+                            
+                            <h4>Otimizações</h4>
+                            <p>Índices foram criados nas colunas frequentemente utilizadas em consultas (filtros, ordenações, junções) para otimizar a performance. Triggers foram implementados para automatizar tarefas como atualização de timestamps, cálculo de status e geração de notificações.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Script 1: Schema -->
+                    <div class="tab-pane fade" id="v-pills-script1" role="tabpanel">
+                        <div class="db-content">
+                            <h3>Script 1: Schema Inicial e Funções Auxiliares</h3>
+                            <p>Este script inicializa o schema `locafacil`, habilita extensões necessárias no PostgreSQL e cria funções auxiliares para auditoria e gerenciamento de timestamps.</p>
+                            <pre><code class="language-sql">-- Scripts SQL para criação do banco de dados do sistema LocaFácil no Supabase
+-- Arquivo: 01_schema_inicial.sql
+-- Descrição: Criação do schema inicial e configurações básicas
+
+-- Criação de schema personalizado para organização das tabelas
+CREATE SCHEMA IF NOT EXISTS locafacil;
+
+-- Configuração de extensões necessárias
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";      -- Para geração de UUIDs
+CREATE EXTENSION IF NOT EXISTS "pg_stat_statements"; -- Para análise de performance
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";        -- Para busca por similaridade de texto
+CREATE EXTENSION IF NOT EXISTS "unaccent";       -- Para busca sem acentos
+
+-- Configuração de funções auxiliares para auditoria
+CREATE OR REPLACE FUNCTION locafacil.set_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Função para obter o usuário atual do Supabase
+CREATE OR REPLACE FUNCTION locafacil.get_current_user_id()
+RETURNS uuid AS $$
+BEGIN
+  RETURN auth.uid();
+EXCEPTION
+  WHEN OTHERS THEN
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Função para registrar ações de auditoria
+CREATE OR REPLACE FUNCTION locafacil.log_audit_event(
+  p_table_name text,
+  p_record_id uuid,
+  p_action text,
+  p_old_data jsonb DEFAULT NULL,
+  p_new_data jsonb DEFAULT NULL
+)
+RETURNS void AS $$
+BEGIN
+  INSERT INTO locafacil.audit_logs (
+    table_name,
+    record_id,
+    action,
+    old_data,
+    new_data,
+    user_id,
+    ip_address
+  ) VALUES (
+    p_table_name,
+    p_record_id,
+    p_action,
+    p_old_data,
+    p_new_data,
+    locafacil.get_current_user_id(),
+    inet_client_addr()
+  );
+EXCEPTION
+  WHEN OTHERS THEN
+    -- Log silenciosamente falhas de auditoria para não interromper operações principais
+    NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+COMMENT ON SCHEMA locafacil IS 'Schema principal para o sistema LocaFácil de gerenciamento de carros locados para aplicativos';</code></pre>
+                        </div>
+                    </div>
+                    
+                    <!-- Script 2: Tabelas -->
+                    <div class="tab-pane fade" id="v-pills-script2" role="tabpanel">
+                        <div class="db-content">
+                            <h3>Script 2: Criação das Tabelas Principais</h3>
+                            <p>Este script define a estrutura de todas as tabelas principais do sistema, incluindo colunas, tipos de dados, chaves primárias, chaves estrangeiras e constraints básicas.</p>
+                            <pre><code class="language-sql">-- Scripts SQL para criação do banco de dados do sistema LocaFácil no Supabase
+-- Arquivo: 02_tabelas_principais.sql
+-- Descrição: Criação das tabelas principais do sistema
+
+-- Tabela de Usuários (estende a tabela auth.users do Supabase)
+CREATE TABLE locafacil.usuarios (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  nome VARCHAR(100) NOT NULL,
+  -- ... (demais colunas da tabela usuarios)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Tabela de Veículos
+CREATE TABLE locafacil.veiculos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  proprietario_id UUID NOT NULL REFERENCES locafacil.usuarios(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela veiculos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id),
+  updated_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Fotos de Veículos
+CREATE TABLE locafacil.veiculos_fotos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  veiculo_id UUID NOT NULL REFERENCES locafacil.veiculos(id) ON DELETE CASCADE,
+  -- ... (demais colunas da tabela veiculos_fotos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Contratos
+CREATE TABLE locafacil.contratos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  veiculo_id UUID NOT NULL REFERENCES locafacil.veiculos(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela contratos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id),
+  updated_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Vistorias
+CREATE TABLE locafacil.vistorias (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  veiculo_id UUID NOT NULL REFERENCES locafacil.veiculos(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela vistorias)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id),
+  updated_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Avaliações de Componentes nas Vistorias
+CREATE TABLE locafacil.vistorias_componentes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  vistoria_id UUID NOT NULL REFERENCES locafacil.vistorias(id) ON DELETE CASCADE,
+  -- ... (demais colunas da tabela vistorias_componentes)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Tabela de Fotos de Vistorias
+CREATE TABLE locafacil.vistorias_fotos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  vistoria_id UUID NOT NULL REFERENCES locafacil.vistorias(id) ON DELETE CASCADE,
+  -- ... (demais colunas da tabela vistorias_fotos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Documentos
+CREATE TABLE locafacil.documentos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  -- ... (demais colunas da tabela documentos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id),
+  updated_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Multas
+CREATE TABLE locafacil.multas (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  veiculo_id UUID NOT NULL REFERENCES locafacil.veiculos(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela multas)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id),
+  updated_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Pagamentos de Multas
+CREATE TABLE locafacil.multas_pagamentos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  multa_id UUID NOT NULL REFERENCES locafacil.multas(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela multas_pagamentos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Recursos de Multas
+CREATE TABLE locafacil.multas_recursos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  multa_id UUID NOT NULL REFERENCES locafacil.multas(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela multas_recursos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id),
+  updated_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Documentos de Recursos de Multas
+CREATE TABLE locafacil.multas_recursos_documentos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  recurso_id UUID NOT NULL REFERENCES locafacil.multas_recursos(id) ON DELETE CASCADE,
+  -- ... (demais colunas da tabela multas_recursos_documentos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Registros de Quilometragem
+CREATE TABLE locafacil.quilometragem (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  veiculo_id UUID NOT NULL REFERENCES locafacil.veiculos(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela quilometragem)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Pagamentos (do contrato)
+CREATE TABLE locafacil.pagamentos (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  contrato_id UUID NOT NULL REFERENCES locafacil.contratos(id) ON DELETE RESTRICT,
+  -- ... (demais colunas da tabela pagamentos)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  created_by UUID REFERENCES auth.users(id),
+  updated_by UUID REFERENCES auth.users(id)
+);
+
+-- Tabela de Relatórios Salvos
+CREATE TABLE locafacil.relatorios (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  usuario_id UUID NOT NULL REFERENCES locafacil.usuarios(id) ON DELETE CASCADE,
+  -- ... (demais colunas da tabela relatorios)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Tabela de Logs de Auditoria
+CREATE TABLE locafacil.audit_logs (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  -- ... (demais colunas da tabela audit_logs)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Tabela de Notificações
+CREATE TABLE locafacil.notificacoes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  usuario_id UUID NOT NULL REFERENCES locafacil.usuarios(id) ON DELETE CASCADE,
+  -- ... (demais colunas da tabela notificacoes)
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Adicionar triggers de updated_at e auditoria (exemplo para veículos)
+CREATE TRIGGER set_usuarios_updated_at BEFORE UPDATE ON locafacil.usuarios FOR EACH ROW EXECUTE FUNCTION locafacil.set_updated_at();
+CREATE TRIGGER set_veiculos_updated_at BEFORE UPDATE ON locafacil.veiculos FOR EACH ROW EXECUTE FUNCTION locafacil.set_updated_at();
+-- ... (triggers para outras tabelas)
+
+CREATE OR REPLACE FUNCTION locafacil.veiculos_audit_trigger() RETURNS TRIGGER AS $$ ... $$ LANGUAGE plpgsql;
+CREATE TRIGGER veiculos_audit AFTER INSERT OR UPDATE OR DELETE ON locafacil.veiculos FOR EACH ROW EXECUTE FUNCTION locafacil.veiculos_audit_trigger();
+-- ... (triggers de auditoria para outras tabelas)
+
+-- Comentários nas tabelas
+COMMENT ON TABLE locafacil.usuarios IS 'Usuários do sistema...';
+-- ... (comentários para outras tabelas)</code></pre>
+                            <p><em>Nota: O código acima é um resumo. Consulte o arquivo SQL completo para a definição detalhada de todas as colunas e constraints.</em></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Script 3: Índices -->
+                    <div class="tab-pane fade" id="v-pills-script3" role="tabpanel">
+                        <div class="db-content">
+                            <h3>Script 3: Índices e Constraints Adicionais</h3>
+                            <p>Este script cria índices para otimizar consultas frequentes e adiciona constraints mais complexas e triggers para garantir a integridade dos dados e automatizar processos.</p>
+                            <pre><code class="language-sql">-- Scripts SQL para criação do banco de dados do sistema LocaFácil no Supabase
+-- Arquivo: 03_indices_e_constraints.sql
+-- Descrição: Criação de índices e constraints adicionais para otimização
+
+-- Índices para otimização de consultas frequentes
+CREATE INDEX idx_usuarios_tipo ON locafacil.usuarios(tipo);
+CREATE INDEX idx_veiculos_status ON locafacil.veiculos(status);
+CREATE INDEX idx_contratos_status ON locafacil.contratos(status);
+-- ... (demais índices)
+
+-- Constraints adicionais
+
+-- Constraint para garantir que o motorista atual de um veículo seja do tipo 'motorista'
+ALTER TABLE locafacil.veiculos ADD CONSTRAINT check_motorista_tipo CHECK (...);
+
+-- Constraint para garantir que a data de fim do contrato seja posterior à data de início
+ALTER TABLE locafacil.contratos ADD CONSTRAINT check_contrato_datas CHECK (...);
+
+-- Constraint para garantir que a quilometragem registrada seja maior que a anterior
+CREATE OR REPLACE FUNCTION locafacil.check_quilometragem() RETURNS TRIGGER AS $$ ... $$ LANGUAGE plpgsql;
+CREATE TRIGGER check_quilometragem_before_insert BEFORE INSERT ON locafacil.quilometragem FOR EACH ROW EXECUTE FUNCTION locafacil.check_quilometragem();
+
+-- Função para atualizar a quilometragem do veículo após novo registro
+CREATE OR REPLACE FUNCTION locafacil.update_veiculo_quilometragem() RETURNS TRIGGER AS $$ ... $$ LANGUAGE plpgsql;
+CREATE TRIGGER update_veiculo_km_after_insert AFTER INSERT ON locafacil.quilometragem FOR EACH ROW EXECUTE FUNCTION locafacil.update_veiculo_quilometragem();
+
+-- Função para atualizar o status de documentos baseado na data de vencimento
+CREATE OR REPLACE FUNCTION locafacil.update_documento_status() RETURNS TRIGGER AS $$ ... $$ LANGUAGE plpgsql;
+CREATE TRIGGER update_documento_status_trigger BEFORE INSERT OR UPDATE ON locafacil.documentos FOR EACH ROW EXECUTE FUNCTION locafacil.update_documento_status();
+
+-- Função para criar notificação automática para documentos próximos do vencimento
+CREATE OR REPLACE FUNCTION locafacil.create_documento_notification() RETURNS TRIGGER AS $$ ... $$ LANGUAGE plpgsql;
+CREATE TRIGGER create_documento_notification_trigger AFTER INSERT OR UPDATE ON locafacil.documentos FOR EACH ROW EXECUTE FUNCTION locafacil.create_documento_notification();
+
+-- ... (demais funções e triggers)</code></pre>
+                            <p><em>Nota: O código acima é um resumo. Consulte o arquivo SQL completo para a definição detalhada de todos os índices, constraints e triggers.</em></p>
+                        </div>
+                    </div>
+                    
+                    <!-- Script 4: RLS -->
+                    <div class="tab-pane fade" id="v-pills-script4" role="tabpanel">
+                        <div class="db-content">
+                            <h3>Script 4: Políticas de Segurança (RLS)</h3>
+                            <p>Este script habilita o Row Level Security (RLS) em todas as tabelas e define as políticas de acesso para cada tipo de usuário (administrador, proprietário, motorista), garantindo que cada um veja e modifique apenas os dados permitidos.</p>
+                            <pre><code class="language-sql">-- Scripts SQL para criação do banco de dados do sistema LocaFácil no Supabase
+-- Arquivo: 04_politicas_rls.sql
+-- Descrição: Configuração de políticas de segurança Row Level Security (RLS)
+
+-- Habilitar RLS em todas as tabelas
+ALTER TABLE locafacil.usuarios ENABLE ROW LEVEL SECURITY;
+ALTER TABLE locafacil.veiculos ENABLE ROW LEVEL SECURITY;
+-- ... (habilitar RLS para todas as tabelas)
+
+-- Função auxiliar para verificar se o usuário é administrador
+CREATE OR REPLACE FUNCTION locafacil.is_admin() RETURNS BOOLEAN AS $$ ... $$ LANGUAGE plpgsql SECURITY DEFINER;
+-- ... (funções auxiliares is_proprietario, is_motorista)
+
+-- Políticas para tabela de usuários
+-- Administradores podem ver todos os usuários
+CREATE POLICY admin_view_all_usuarios ON locafacil.usuarios FOR SELECT USING (locafacil.is_admin());
+
+-- Proprietários podem ver seus próprios dados e dados dos motoristas associados
+CREATE POLICY proprietario_view_usuarios ON locafacil.usuarios FOR SELECT USING (...);
+
+-- Motoristas podem ver apenas seus próprios dados e do proprietário do veículo
+CREATE POLICY motorista_view_usuarios ON locafacil.usuarios FOR SELECT USING (...);
+
+-- Usuários podem atualizar apenas seus próprios dados
+CREATE POLICY update_own_usuario ON locafacil.usuarios FOR UPDATE USING (auth.uid() = id);
+
+-- Políticas para tabela de veículos
+-- Proprietários podem ver apenas seus próprios veículos
+CREATE POLICY proprietario_view_veiculos ON locafacil.veiculos FOR SELECT USING (proprietario_id = auth.uid());
+
+-- Motoristas podem ver apenas o veículo que estão utilizando
+CREATE POLICY motorista_view_veiculos ON locafacil.veiculos FOR SELECT USING (motorista_atual_id = auth.uid());
+
+-- Proprietários podem inserir novos veículos
+CREATE POLICY proprietario_insert_veiculos ON locafacil.veiculos FOR INSERT WITH CHECK (proprietario_id = auth.uid());
+
+-- ... (demais políticas para todas as tabelas e operações: SELECT, INSERT, UPDATE, DELETE)</code></pre>
+                            <p><em>Nota: O código acima é um resumo. Consulte o arquivo SQL completo para a definição detalhada de todas as políticas RLS.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4">LocaFácil</h5>
+                    <p>Sistema de gerenciamento de carros locados para aplicativos como Uber e outros serviços de mobilidade.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="mb-4">Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="prototipos.html">Protótipos</a></li>
+                        <li><a href="documentacao.html">Documentação</a></li>
+                        <li><a href="banco_dados.html">Banco de Dados</a></li>
+                        <li><a href="demo.html">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-4">Recursos</h5>
+                    <ul class="footer-links">
+                        <li><a href="base_dados.html">Base de Dados</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-4">Contato</h5>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-envelope me-2"></i> contato@locafacil.com.br</li>
+                        <li><i class="bi bi-telephone me-2"></i> (11) 9999-9999</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 LocaFácil. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Desenvolvido por Harrison Costa</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/components/prism-sql.min.js"></script>
+</body>
+</html>

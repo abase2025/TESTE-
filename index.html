@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocaFácil - Sistema de Gerenciamento de Carros Locados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #1A5F7A;
+            --secondary-color: #57C5B6;
+            --accent-color: #FFA000;
+            --danger-color: #E53935;
+            --light-bg: #F2F2F2;
+            --dark-text: #333333;
+            --medium-text: #6B7280;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), #0D3B4F);
+            color: white;
+            padding: 100px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        
+        .hero-section .btn {
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-section .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .hero-section .btn-primary:hover {
+            background-color: #F57C00;
+            border-color: #F57C00;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section .btn-outline-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .hero-image {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .hero-shape {
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: var(--light-bg);
+            clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
+        }
+        
+        .features-section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -15px;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color);
+            transform: translateX(-50%);
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(26, 95, 122, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon i {
+            font-size: 30px;
+            color: var(--primary-color);
+        }
+        
+        .feature-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .feature-card p {
+            color: var(--medium-text);
+            margin-bottom: 0;
+        }
+        
+        .steps-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .step-card {
+            position: relative;
+            padding-left: 100px;
+            margin-bottom: 50px;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), #0D3B4F);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 30px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .step-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .step-card p {
+            color: var(--medium-text);
+        }
+        
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-color), #0D3B4F);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta-section .btn {
+            padding: 15px 40px;
+            font-weight: 600;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-section .btn-light {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .cta-section .btn-light:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background-color: #0D3B4F;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0 60px;
+            }
+            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            
+            .step-card {
+                padding-left: 0;
+                padding-top: 100px;
+            }
+            
+            .step-number {
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        .btn-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-floating:hover {
+            background-color: #F57C00;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-car-front-fill me-2"></i>
+                LocaFácil
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="prototipos.html">Protótipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentacao.html">Documentação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="banco_dados.html">Banco de Dados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="demo.html">Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1>Gerencie sua frota com facilidade</h1>
+                    <p>LocaFácil é a solução completa para proprietários que alugam veículos para motoristas de aplicativos como Uber, 99 e outros serviços de mobilidade.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="demo.html" class="btn btn-primary">Ver Demo</a>
+                        <a href="documentacao.html" class="btn btn-outline-light">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-image">
+                        <img src="https://via.placeholder.com/600x400/1A5F7A/FFFFFF?text=LocaFácil+Dashboard" alt="LocaFácil Dashboard" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">Funcionalidades Principais</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+                        <h3>Controle de Quilometragem</h3>
+                        <p>Monitore a quilometragem dos veículos com registros semanais e fotos do hodômetro. Receba alertas de inconsistências e visualize históricos completos.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-clipboard-check"></i>
+                        </div>
+                        <h3>Vistorias Detalhadas</h3>
+                        <p>Agende e registre vistorias com checklists personalizados e fotos. Compare o estado do veículo ao longo do tempo e identifique problemas rapidamente.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <h3>Gestão de Documentos</h3>
+                        <p>Organize todos os documentos por categorias e receba alertas de vencimentos. Mantenha CRLV, seguros e revisões sempre em dia e acessíveis.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                        <h3>Controle de Multas</h3>
+                        <p>Registre infrações, atribua responsabilidades e gerencie pagamentos e recursos. Mantenha um histórico completo de todas as ocorrências.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <h3>Relatórios Gerenciais</h3>
+                        <p>Visualize dados financeiros, desempenho da frota e histórico de motoristas. Exporte relatórios em múltiplos formatos para análises detalhadas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <h3>Notificações em Tempo Real</h3>
+                        <p>Receba alertas sobre vistorias pendentes, documentos a vencer, multas e pagamentos. Mantenha-se informado sobre tudo que acontece com sua frota.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="steps-section">
+        <div class="container">
+            <h2 class="section-title">Como Funciona</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Entenda o Problema</h3>
+                        <p>Identificamos os desafios específicos do gerenciamento de carros locados para aplicativos, como controle de quilometragem, vistorias periódicas e gestão de documentos.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Solução Tecnológica</h3>
+                        <p>Desenvolvemos uma plataforma completa utilizando FlutterFlow para o frontend e Supabase para o backend, garantindo uma experiência fluida e segura.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Design das Telas</h3>
+                        <p>Criamos interfaces intuitivas e responsivas, com foco na experiência do usuário, tanto para proprietários quanto para motoristas, em dispositivos desktop e móveis.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>Banco de Dados</h3>
+                        <p>Modelamos um banco de dados robusto no Supabase, com políticas de segurança avançadas e estrutura otimizada para consultas rápidas e eficientes.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <h3>Desenvolvimento</h3>
+                        <p>Implementamos todas as funcionalidades, integrando frontend e backend, com foco em segurança, performance e escalabilidade para atender desde pequenos proprietários até grandes frotas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Pronto para simplificar a gestão da sua frota?</h2>
+            <p>Experimente o LocaFácil hoje mesmo e descubra como é fácil gerenciar seus veículos locados para aplicativos de mobilidade.</p>
+            <a href="demo.html" class="btn btn-light">Acessar Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4">LocaFácil</h5>
+                    <p>Sistema de gerenciamento de carros locados para aplicativos como Uber e outros serviços de mobilidade.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="mb-4">Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="prototipos.html">Protótipos</a></li>
+                        <li><a href="documentacao.html">Documentação</a></li>
+                        <li><a href="banco_dados.html">Banco de Dados</a></li>
+                        <li><a href="demo.html">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-4">Recursos</h5>
+                    <ul class="footer-links">
+                        <li><a href="base_dados.html">Base de Dados</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-4">Contato</h5>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-envelope me-2"></i> contato@locafacil.com.br</li>
+                        <li><i class="bi bi-telephone me-2"></i> (11) 9999-9999</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p>&copy; 2025 LocaFácil. Todos os direitos reservados. Desenvolvido por Harrison Costa</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Button -->
+    <a href="demo.html" class="btn-floating">
+        <i class="bi bi-play-fill"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protótipos - LocaFácil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #1A5F7A;
+            --secondary-color: #57C5B6;
+            --accent-color: #FFA000;
+            --danger-color: #E53935;
+            --light-bg: #F2F2F2;
+            --dark-text: #333333;
+            --medium-text: #6B7280;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            padding-top: 56px;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), #0D3B4F);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            padding: 15px 20px;
+            border-bottom: none;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-primary:hover {
+            background-color: #14506A;
+            border-color: #14506A;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 10px 20px;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: #0D3B4F;
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin-right: 15px;
+        }
+        
+        .prototype-img {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .prototype-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--dark-text);
+            border-radius: 6px;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .prototype-details {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .prototype-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .prototype-details h4 {
+            font-size: 1.2rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .prototype-details ul {
+            padding-left: 20px;
+        }
+        
+        .prototype-details li {
+            margin-bottom: 8px;
+        }
+        
+        .color-swatch {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 30px 0;
+            }
+            
+            .prototype-details {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-car-front-fill me-2"></i>
+                LocaFácil
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="prototipos.html">Protótipos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="documentacao.html">Documentação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="banco_dados.html">Banco de Dados</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="demo.html">Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Protótipos</h1>
+            <p class="lead">Visualize os protótipos detalhados de todas as telas do sistema LocaFácil</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <div class="col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-list-ul me-2"></i> Navegação
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="nav flex-column nav-pills p-3" id="v-pills-tab" role="tablist">
+                            <button class="nav-link active" id="v-pills-login-tab" data-bs-toggle="pill" data-bs-target="#v-pills-login" type="button" role="tab">Tela de Login</button>
+                            <button class="nav-link" id="v-pills-dashboard-prop-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard-prop" type="button" role="tab">Dashboard do Proprietário</button>
+                            <button class="nav-link" id="v-pills-dashboard-mot-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard-mot" type="button" role="tab">Dashboard do Motorista</button>
+                            <button class="nav-link" id="v-pills-veiculos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-veiculos" type="button" role="tab">Módulo de Veículos</button>
+                            <button class="nav-link" id="v-pills-vistorias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-vistorias" type="button" role="tab">Módulo de Vistorias</button>
+                            <button class="nav-link" id="v-pills-documentos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-documentos" type="button" role="tab">Módulo de Documentos</button>
+                            <button class="nav-link" id="v-pills-multas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-multas" type="button" role="tab">Módulo de Multas</button>
+                            <button class="nav-link" id="v-pills-relatorios-tab" data-bs-toggle="pill" data-bs-target="#v-pills-relatorios" type="button" role="tab">Módulo de Relatórios</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <i class="bi bi-palette me-2"></i> Paleta de Cores
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="color-swatch" style="background-color: #1A5F7A;"></span>
+                            <span>Azul Confiança (#1A5F7A)</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="color-swatch" style="background-color: #57C5B6;"></span>
+                            <span>Verde Sucesso (#57C5B6)</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="color-swatch" style="background-color: #FFA000;"></span>
+                            <span>Âmbar (#FFA000)</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="color-swatch" style="background-color: #E53935;"></span>
+                            <span>Vermelho (#E53935)</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="color-swatch" style="background-color: #F2F2F2;"></span>
+                            <span>Cinza Claro (#F2F2F2)</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="color-swatch" style="background-color: #333333;"></span>
+                            <span>Preto Elegante (#333333)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <i class="bi bi-download me-2"></i> Downloads
+                    </div>
+                    <div class="card-body">
+                        <a href="prototipos_completos.zip" class="btn btn-primary w-100 mb-2">
+                            <i class="bi bi-file-earmark-zip me-2"></i> Baixar Protótipos
+                        </a>
+                        <a href="locafacil_projeto_completo.zip" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-download me-2"></i> Projeto Completo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Prototype Content -->
+            <div class="col-lg-9">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <!-- Login Screen -->
+                    <div class="tab-pane fade show active" id="v-pills-login" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Tela de Login</h3>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <img src="https://via.placeholder.com/600x800/F2F2F2/1A5F7A?text=Tela+de+Login" alt="Tela de Login" class="img-fluid prototype-img">
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Especificações Visuais</h4>
+                                    <ul>
+                                        <li>Resolução Base: 1920x1080px (Desktop)</li>
+                                        <li>Fundo: Gradiente de Azul Confiança (#1A5F7A) para Azul Escuro (#0D3B4F)</li>
+                                        <li>Logo: 120px de altura, centralizado no topo</li>
+                                    </ul>
+                                    
+                                    <h4>Componentes Principais</h4>
+                                    <ul>
+                                        <li>Container de Login: Card branco com sombra suave</li>
+                                        <li>Campos de Entrada: Email e Senha com validação em tempo real</li>
+                                        <li>Botão de Login: Azul Confiança (#1A5F7A)</li>
+                                        <li>Link "Esqueci minha senha": Texto discreto abaixo do formulário</li>
+                                        <li>Opção "Criar Conta": Botão secundário na parte inferior</li>
+                                    </ul>
+                                    
+                                    <h4>Comportamentos</h4>
+                                    <ul>
+                                        <li>Validação em tempo real dos campos</li>
+                                        <li>Feedback visual para erros de autenticação</li>
+                                        <li>Opção de mostrar/ocultar senha</li>
+                                        <li>Redirecionamento para dashboard após login bem-sucedido</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>Fluxo de Autenticação</h4>
+                            <p>O sistema utiliza autenticação via Supabase com tokens JWT, permitindo login com email/senha e também opções de login social (Google, Apple). O fluxo inclui verificação de email para novos usuários e recuperação de senha segura.</p>
+                            
+                            <h4>Tela de Criação de Conta</h4>
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <img src="https://via.placeholder.com/600x800/F2F2F2/1A5F7A?text=Tela+de+Cadastro" alt="Tela de Cadastro" class="img-fluid prototype-img">
+                                </div>
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li>Formulário com campos para Nome, Email, Telefone, CPF, Senha</li>
+                                        <li>Seleção de tipo de usuário (Proprietário ou Motorista)</li>
+                                        <li>Upload de foto de perfil (opcional)</li>
+                                        <li>Termos de uso e política de privacidade</li>
+                                        <li>Botão de cadastro com feedback visual durante o processo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard Proprietário -->
+                    <div class="tab-pane fade" id="v-pills-dashboard-prop" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Dashboard do Proprietário</h3>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <img src="https://via.placeholder.com/600x800/F2F2F2/1A5F7A?text=Dashboard+Proprietário" alt="Dashboard do Proprietário" class="img-fluid prototype-img">
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Especificações Visuais</h4>
+                                    <ul>
+                                        <li>Layout com menu lateral fixo à esquerda</li>
+                                        <li>Área de conteúdo principal à direita</li>
+                                        <li>Barra superior com notificações e perfil</li>
+                                        <li>Cards de resumo com indicadores visuais</li>
+                                    </ul>
+                                    
+                                    <h4>Componentes Principais</h4>
+                                    <ul>
+                                        <li>Cards de Resumo: Receita, Veículos Ativos, Vistorias Pendentes, Documentos a Vencer</li>
+                                        <li>Gráfico de Receita: Visualização mensal/anual</li>
+                                        <li>Lista de Veículos: Status, motorista atual, quilometragem</li>
+                                        <li>Alertas e Notificações: Prioridade visual por cores</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>Seções Principais</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Resumo Financeiro</h5>
+                                    <ul>
+                                        <li>Receita total do mês atual</li>
+                                        <li>Comparativo com mês anterior</li>
+                                        <li>Gráfico de barras para visualização mensal</li>
+                                        <li>Filtros por período e por veículo</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Visão da Frota</h5>
+                                    <ul>
+                                        <li>Total de veículos por status</li>
+                                        <li>Taxa de ocupação da frota</li>
+                                        <li>Veículos com manutenção próxima</li>
+                                        <li>Quilometragem média da frota</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <h5>Alertas e Lembretes</h5>
+                                    <ul>
+                                        <li>Documentos próximos do vencimento</li>
+                                        <li>Vistorias pendentes de aprovação</li>
+                                        <li>Multas recentes</li>
+                                        <li>Pagamentos atrasados</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Ações Rápidas</h5>
+                                    <ul>
+                                        <li>Adicionar novo veículo</li>
+                                        <li>Registrar novo motorista</li>
+                                        <li>Agendar vistoria</li>
+                                        <li>Gerar relatório</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard Motorista -->
+                    <div class="tab-pane fade" id="v-pills-dashboard-mot" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Dashboard do Motorista</h3>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <img src="https://via.placeholder.com/600x800/F2F2F2/1A5F7A?text=Dashboard+Motorista" alt="Dashboard do Motorista" class="img-fluid prototype-img">
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Especificações Visuais</h4>
+                                    <ul>
+                                        <li>Layout com menu lateral simplificado</li>
+                                        <li>Foco em informações do veículo atual</li>
+                                        <li>Cards de resumo com indicadores visuais</li>
+                                        <li>Acesso rápido a funções essenciais</li>
+                                    </ul>
+                                    
+                                    <h4>Componentes Principais</h4>
+                                    <ul>
+                                        <li>Seção do Veículo Atual: Foto, placa, modelo, status</li>
+                                        <li>Cards de Resumo: Quilometragem semanal, vistorias pendentes, multas, documentos</li>
+                                        <li>Gráfico de Quilometragem: Visualização diária/semanal</li>
+                                        <li>Alertas e Lembretes: Próximas vistorias, documentos a vencer</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>Modais e Interações</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Modal: Registrar Quilometragem</h5>
+                                    <ul>
+                                        <li>Campo para data do registro</li>
+                                        <li>Campo para quilometragem atual</li>
+                                        <li>Seletor de tipo de uso</li>
+                                        <li>Upload de foto do hodômetro</li>
+                                        <li>Campo para observações</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Modal: Solicitar Vistoria</h5>
+                                    <ul>
+                                        <li>Seleção de tipo de vistoria</li>
+                                        <li>Seleção de data e horário preferencial</li>
+                                        <li>Seleção de local</li>
+                                        <li>Campo para motivo (se emergencial)</li>
+                                        <li>Campo para descrição do problema</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <h5>Modal: Reportar Problema</h5>
+                                    <ul>
+                                        <li>Seleção de categoria do problema</li>
+                                        <li>Seleção de nível de urgência</li>
+                                        <li>Campo para descrição detalhada</li>
+                                        <li>Upload de fotos do problema</li>
+                                        <li>Seleção de impacto na utilização</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Seção de Últimas Atividades</h5>
+                                    <ul>
+                                        <li>Timeline com histórico de ações</li>
+                                        <li>Registros de quilometragem</li>
+                                        <li>Vistorias realizadas</li>
+                                        <li>Multas recebidas</li>
+                                        <li>Pagamentos efetuados</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Módulo de Veículos -->
+                    <div class="tab-pane fade" id="v-pills-veiculos" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Módulo de Veículos</h3>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <img src="https://via.placeholder.com/600x800/F2F2F2/1A5F7A?text=Módulo+de+Veículos" alt="Módulo de Veículos" class="img-fluid prototype-img">
+                                </div>
+                                <div class="col-md-6">
+                                    <h4>Especificações Visuais</h4>
+                                    <ul>
+                                        <li>Visualização em lista e cards</li>
+                                        <li>Filtros avançados no topo</li>
+                                        <li>Indicadores visuais de status</li>
+                                        <li>Ações rápidas por veículo</li>
+                                    </ul>
+                                    
+                                    <h4>Componentes Principais</h4>
+                                    <ul>
+                                        <li>Barra de Filtros: Status, motorista, marca, modelo</li>
+                                        <li>Visualização em Tabela: Dados técnicos e status</li>
+                                        <li>Visualização em Cards: Foto e informações principais</li>
+                                        <li>Botões de Ação: Editar, Atribuir Motorista, Agendar Vistoria</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>Detalhes do Veículo</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Informações Gerais</h5>
+                                    <ul>
+                                        <li>Dados de Identificação: Placa, Renavam, Chassi</li>
+                                        <li>Dados Técnicos: Marca, Modelo, Ano, Cor</li>
+                                        <li>Status Atual: Ativo, Em Manutenção, Disponível</li>
+                                        <li>Motorista Atual: Nome, contato, desde quando</li>
+                                        <li>Dados Financeiros: Valor de aquisição, valor de locação</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Abas de Detalhes</h5>
+                                    <ul>
+                                        <li>Histórico de Quilometragem: Gráfico e registros</li>
+                                        <li>Vistorias: Histórico e agendamentos</li>
+                                        <li>Documentos: CRLV, Seguro, Revisões</li>
+                                        <li>Multas: Histórico e status</li>
+                                        <li>Manutenções: Preventivas e corretivas</li>
+                                        <li>Histórico de Motoristas: Quem já utilizou o veículo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <h4>Formulário de Cadastro/Edição</h4>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <h5>Dados Básicos</h5>
+                                    <ul>
+                                        <li>Placa, Renavam, Chassi</li>
+                                        <li>Marca, Modelo, Versão</li>
+                                        <li>Ano de Fabricação, Ano Modelo</li>
+                                        <li>Cor, Combustível</li>
+                                        <li>Quilometragem Inicial</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Dados Complementares</h5>
+                                    <ul>
+                                        <li>Data de Aquisição</li>
+                                        <li>Valor de Aquisição</li>
+                                        <li>Valor de Locação</li>
+                                        <li>Upload de Fotos (múltiplas)</li>
+                                        <li>Upload de Documentos</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Outros módulos seguem o mesmo padrão -->
+                    <div class="tab-pane fade" id="v-pills-vistorias" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Módulo de Vistorias</h3>
+                            <p>Detalhes do módulo de vistorias...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="v-pills-documentos" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Módulo de Documentos</h3>
+                            <p>Detalhes do módulo de documentos...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="v-pills-multas" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Módulo de Multas</h3>
+                            <p>Detalhes do módulo de multas...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="v-pills-relatorios" role="tabpanel">
+                        <div class="prototype-details">
+                            <h3>Módulo de Relatórios</h3>
+                            <p>Detalhes do módulo de relatórios...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="demo.html" class="btn btn-primary btn-lg">
+                        <i class="bi bi-laptop me-2"></i> Acessar Demo Interativa
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-4">LocaFácil</h5>
+                    <p>Sistema de gerenciamento de carros locados para aplicativos como Uber e outros serviços de mobilidade.</p>
+                    <div class="social-icons mt-3">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="mb-4">Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="prototipos.html">Protótipos</a></li>
+                        <li><a href="documentacao.html">Documentação</a></li>
+                        <li><a href="banco_dados.html">Banco de Dados</a></li>
+                        <li><a href="demo.html">Demo</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h5 class="mb-4">Recursos</h5>
+                    <ul class="footer-links">
+                        <li><a href="base_dados.html">Base de Dados</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">Suporte</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="mb-4">Contato</h5>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-envelope me-2"></i> contato@locafacil.com.br</li>
+                        <li><i class="bi bi-telephone me-2"></i> (11) 9999-9999</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 LocaFácil. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Desenvolvido por Harrison Costa</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
